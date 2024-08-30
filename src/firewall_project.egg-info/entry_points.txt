@@ -1,0 +1,3 @@
+[console_scripts]
+firewall = src.firewall:main
+
