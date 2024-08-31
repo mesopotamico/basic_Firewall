@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={            # Define the entry point for the command-line tool
         'console_scripts': [
-            'firewall=src.firewall:main',  # Format: 'command=module:function'
+            'firewall=firewall:main',  # Format: 'command=module:function'
         ],
     },
 )
