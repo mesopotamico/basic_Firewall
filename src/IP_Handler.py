@@ -14,7 +14,7 @@ class IPFilterHandler(Handler):
                 return self.next_handler.handler_request(packet) 
         else:
             print("Packet from {packet.ip} blocked by IP filter.")
-            return "Blocked by IP filter"
+            return "Blocked by IP filter."
 
     def is_allowed_ip(self, ip):
         allowed_ips = ['192.168.1.10', '10.0.0.5'] 
