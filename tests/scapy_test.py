@@ -2,8 +2,11 @@ from scapy.all import *
 # Definir una función de callback para procesar los paquetes
 def procesar_paquete(paquete):
     print("Paquete capturado:")
+    paquete.show()
     ip = paquete.getlayer(IP)
-    print(f"La ip del paquete es: {ip.src}")
+    tcp = paquete.getlayer(TCP)
+#    print(f"La ip paquete es: {ip.src} y la destino es: {ip.dst}")
+    #print(f"La tcp paquete es: {tcp}")
     # También puedes acceder a atributos específicos, por ejemplo:
     # print(paquete[IP].src)  # Dirección IP de origen
 

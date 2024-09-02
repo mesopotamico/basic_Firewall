@@ -1,4 +1,5 @@
 from IP_Handler import IPFilterHandler
+from scapy.all import  *
 from packet_model import Packet 
 
 
@@ -20,7 +21,6 @@ class Firewall:
 
 
 
-
 def main():
     print("Starting the firewall...")
     
@@ -34,8 +34,22 @@ def main():
 
     #Process a packet 
 
-    packet1 = Packet('192.168.1.10', 80, 'TCP')
-    result = firewall.process(packet1)
+    #packet = Packet('192.168.1.10', '192.168.1.10' ,80, 'TCP')
+    #result = firewall.process(packet)
+
+    def packet_callback(packet):
+
+        ip = packet.getlayer(IP)
+        tcp = packet.getlayer(TCP) 
+
+        standar_packet = Packet(ip.src, ip.dst, int(tcp.sport) , 'TCP' )
+
+        firewall.process(standar_packet)
+
+    sniff(prn = packet_callback, count = 1)
+
+
+
     
     print(result)
 

@@ -8,12 +8,12 @@ class IPFilterHandler(Handler):
         self.next_handler = handler
 
     def handler_request(self, packet):
-        if self.is_allowed_ip(packet.ip):
-            print(f"Packet from {packet.ip} allowed by IP filter. ")
+        if self.is_allowed_ip(packet.ip_src):
+            print(f"Packet from {packet.ip_src} allowed by IP filter. ")
             if self.next_handler:
                 return self.next_handler.handler_request(packet) 
         else:
-            print("Packet from {packet.ip} blocked by IP filter.")
+            print("Packet from {packet.ip_src} blocked by IP filter.")
             return "Blocked by IP filter."
 
     def is_allowed_ip(self, ip):
