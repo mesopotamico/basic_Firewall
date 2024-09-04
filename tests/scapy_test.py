@@ -5,13 +5,16 @@ def procesar_paquete(paquete):
     paquete.show()
     ip = paquete.getlayer(IP)
     tcp = paquete.getlayer(TCP)
+    port = paquete.sport 
+    print(f"The port is showed like this: {port}")
+    print(f"The ip is showed like this: {ip.src}")
 #    print(f"La ip paquete es: {ip.src} y la destino es: {ip.dst}")
     #print(f"La tcp paquete es: {tcp}")
     # También puedes acceder a atributos específicos, por ejemplo:
     # print(paquete[IP].src)  # Dirección IP de origen
 
 # Capturar paquetes en tiempo real
-sniff(prn=procesar_paquete, count=2)  # Captura 10 paquetes
+sniff(prn=procesar_paquete, count=1)  # Captura 10 paquetes
 
 ip = IP(dst="www.google.com")
 

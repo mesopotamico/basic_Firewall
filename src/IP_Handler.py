@@ -1,4 +1,7 @@
 from handler import Handler
+from dotenv import load_dotenv
+from scapy.all import *
+import os
 
 class IPFilterHandler(Handler):
     def __init__(self):
@@ -8,12 +11,13 @@ class IPFilterHandler(Handler):
         self.next_handler = handler
 
     def handler_request(self, packet):
-        if self.is_allowed_ip(packet.ip_src):
-            print(f"Packet from {packet.ip_src} allowed by IP filter. ")
+        ip = packet.getlayer(IP)
+        if self.is_allowed_ip(ip.src):
+            print(f"Packet from {ip.src} allowed by IP filter. ")
             if self.next_handler:
                 return self.next_handler.handler_request(packet) 
         else:
-            print("Packet from {packet.ip_src} blocked by IP filter.")
+            print(f"Packet from {ip.src} blocked by IP filter.")
             return "Blocked by IP filter."
 
     def is_allowed_ip(self, ip):
