@@ -12,7 +12,7 @@ def mostrar_protocolos(packet):
             packet = packet.payload
         else:
             break
-    return protocolos
+    return list(protocolos)
 
 # Analiza cada paquete y muestra los protocolos
 for pkt in packets:

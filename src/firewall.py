@@ -1,5 +1,6 @@
 from IP_Handler import IPFilterHandler
 from port_handler import PortFilterHandler 
+from protocol_handler import ProtocolFilterHandler
 from scapy.all import  *
 from dotenv import load_dotenv
 import os
@@ -28,6 +29,7 @@ def main():
     
     ip_handler = IPFilterHandler()
     port_handler = PortFilterHandler() 
+    protocol_handler = ProtocolFilterHandler()
 
 
     #Make the firewall and assign the first handler
@@ -35,6 +37,7 @@ def main():
     firewall.set_first_handler(ip_handler)
     #Assign pattern
     ip_handler.set_next(port_handler)
+    port_handler.set_next(protocol_handler)
    
     #Process a packet 
 
@@ -43,7 +46,7 @@ def main():
         #packet.show()
         firewall.process(packet)
 
-    sniff(prn = packet_callback, count = 1000)
+    sniff(prn = packet_callback, count = 10)
 
 if __name__ == "__main__":
     main()

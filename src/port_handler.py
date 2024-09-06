@@ -33,5 +33,5 @@ class PortFilterHandler(Handler):
                 return "Blocked by UDP filter."
 
     def is_allowed_port(self, port):
-        allowed_ports = [80, 443]
+        allowed_ports = [80, 443, 3478]
         return port in allowed_ports
