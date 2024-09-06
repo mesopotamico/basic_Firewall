@@ -22,7 +22,8 @@ class IPFilterHandler(Handler):
 
     def is_allowed_ip(self, ip):
         allowed_ips = ['192.168.1.10', '10.0.0.5'] 
-        return True
-        #return ip in allowed_ips
+
+        #return True
+        return ip in allowed_ips
 
 

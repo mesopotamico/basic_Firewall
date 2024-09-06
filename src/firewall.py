@@ -43,7 +43,7 @@ def main():
         #packet.show()
         firewall.process(packet)
 
-    sniff(prn = packet_callback, count = 1)
+    sniff(prn = packet_callback, count = 1000)
 
 if __name__ == "__main__":
     main()
