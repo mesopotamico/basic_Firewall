@@ -45,6 +45,7 @@ def main():
     def packet_callback(packet):
         #packet.show()
         firewall.process(packet)
+        print(" Siguiente")
 
     sniff(prn = packet_callback, count = 10)
 

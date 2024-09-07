@@ -13,21 +13,21 @@ class ProtocolFilterHandler(Handler):
 
     def handler_request(self, packet):
 
-        protocols = self.mostrar_protocolos(packet)
+        protocols = self.show_protocols(packet)
 
         if self.is_allowed_protocol(protocols): 
+            print(f"Allowed by filter protocols") 
             if self.next_handler:
-                print(f"Allowed protocols") 
                 return self.next_handler.handler_request(packet) 
         else:
             print(f"Blocked {packet.name} this is not allowed protocol")
-            return "Blocked by port filter."
+            return "Blocked by protocol filter."
 
     def is_allowed_protocol(self, protocols):
-        allowed_protocols = ['TCP','UDP','Ethernet','IP','Raw']
+        allowed_protocols = ['TCP','UDP','Ethernet','IP','Raw', 'DNS']
         return self.contains_sublist(allowed_protocols, protocols) 
 
-    def mostrar_protocolos(self, packet):
+    def show_protocols(self, packet):
         protocolos = set()
         # Recorrer la pila de protocolos del paquete
         while packet:
@@ -36,13 +36,9 @@ class ProtocolFilterHandler(Handler):
                 packet = packet.payload
             else:
                 break
-        print(protocolos)
         return list(protocolos)
 
     def contains_sublist(self, lst, sublst):
-        len_sub = len(sublst)
-        for i in range(len(lst) - len_sub + 1):
-            if lst[i:i + len_sub] == sublst:
-                return True
-        return False
-
+        conjunto_principal = set(lst)
+        conjunto_sublista = set(sublst)
+        return len(conjunto_sublista - conjunto_principal) == 0
