@@ -1,7 +1,7 @@
 from scapy.all import *
 
 # Captura de paquetes en tiempo real (o puedes cargar un archivo de captura con rdpcap())
-packets = sniff(count=1)  # Captura 10 paquetes, ajusta según necesites
+packets = sniff(count=1000)  # Captura 10 paquetes, ajusta según necesites
 
 def mostrar_protocolos(packet):
     protocolos = set()
