@@ -3,6 +3,11 @@ from dotenv import load_dotenv
 from scapy.all import *
 import os
 
+load_dotenv()
+allowed_ports_str = os.getenv('ALLOWED_PORTS')
+allowed_ports = allowed_ports_str.split(',')
+
+
 class PortFilterHandler(Handler):
     def __init__(self):
         self.next_handler = None
@@ -33,5 +38,5 @@ class PortFilterHandler(Handler):
                 return "Blocked by UDP filter."
 
     def is_allowed_port(self, port):
-        allowed_ports = [80, 443, 3478]
+        #allowed_ports = [80, 443, 3478]
         return port in allowed_ports

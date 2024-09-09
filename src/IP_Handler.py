@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 from scapy.all import *
 import os
 
+load_dotenv()
+allowed_ips_str = os.getenv('ALLOWED_IPS')
+allowed_ips = allowed_ips_str.split(',')
+
 class IPFilterHandler(Handler):
     def __init__(self):
         self.next_handler = None
@@ -21,9 +25,8 @@ class IPFilterHandler(Handler):
             return "Blocked by IP filter."
 
     def is_allowed_ip(self, ip):
-        allowed_ips = ['192.168.1.10', '10.0.0.5'] 
-
-        return True
-        #return ip in allowed_ips
+        #allowed_ips = ['192.168.1.10', '10.0.0.5'] 
+        return ip in allowed_ips
+        #return True
 
 

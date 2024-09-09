@@ -30,7 +30,6 @@ def main():
     
     ip_handler = IPFilterHandler()
     port_handler = PortFilterHandler() 
-
     protocol_handler = ProtocolFilterHandler()
     loggin_handler = LoggingHandler() 
 

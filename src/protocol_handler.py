@@ -3,6 +3,10 @@ from dotenv import load_dotenv
 from scapy.all import *
 import os
 
+load_dotenv()
+allowed_protocols_str = os.getenv('ALLOWED_PROTOCOLS')
+allowed_protocols = allowed_protocols_str.split(',')
+
 class ProtocolFilterHandler(Handler):
     
     def __init__(self):
@@ -24,7 +28,7 @@ class ProtocolFilterHandler(Handler):
             return "Blocked by protocol filter."
 
     def is_allowed_protocol(self, protocols):
-        allowed_protocols = ['TCP','UDP','Ethernet','IP','Raw', 'DNS']
+#        allowed_protocols = ['TCP','UDP','Ethernet','IP','Raw', 'DNS']
         return self.contains_sublist(allowed_protocols, protocols) 
 
     def show_protocols(self, packet):
