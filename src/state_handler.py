@@ -1,17 +1,8 @@
 import time
-from abc import ABC, abstractmethod
-
-class Handler(ABC):
-    @abstractmethod
-    def set_next(self, handler):
-        pass
-
-    @abstractmethod
-    def handle_request(self, packet):
-        pass
-
-
 from handler import Handler
+from dotenv import load_dotenv
+from scapy.all import *
+import os
     
 class Connection:
     def __init__(self, ip, port, protocol):
@@ -39,12 +30,26 @@ class StatefulHandler(Handler):
     def set_next(self, handler):
         self.next_handler = handler
 
-    def handle_request(self, packet):
-        ip = packet.getlayer(IP)
-        port = packet.getlayer(TCP)
+    def handler_request(self, packet):
+        #Where we can get the IP
+
+        if packet.haslayer(TCP):
+            port = packet.getlayer(TCP)
+            protocol = 'TCP'
+        elif packet.haslayer(UDP):
+            port = packet.getlayer(UDP)
+            protocol = 'UDP'
+
+            #Other protocols but you can handle with the other handlers
+
+        if packet.haslayer(IP): 
+            ip = packet.getlayer(IP)
+            source_ip = ip.src
+        else:
+            source_ip = 'NA'
         #protocol.
         current_time = time.time()
-        connection_id = ( ip.src , port.sport, 'TCP')
+        connection_id = ( source_ip, port.sport, protocol )
         
         # Clean up expired connections
         expired_connections = [cid for cid, conn in self.connection_table.items()
@@ -59,25 +64,8 @@ class StatefulHandler(Handler):
             connection.update()
         else:
             print(f"New connection attempt: {connection_id}")
-            self.connection_table[connection_id] = Connection(packet.ip, packet.port, packet.protocol)
+            self.connection_table[connection_id] = Connection( source_ip , port.sport, protocol)
+            #(packet.ip, packet.port, packet.protocol)
         
         if self.next_handler:
-            return self.next_handler.handle_request(packet)
-
-
-# Creamos el manejador con un timeout de 5 segundos
-handler = StatefulHandler(timeout=5)
-
-# Enviamos algunos paquetes para simular conexiones
-sniff(/)
-# Procesamos los paquetes a través del manejador
-for packet in packets:
-    handler.handle_request(packet)
-    time.sleep(1)  # Esperamos 1 segundo entre paquetes
-
-# Simulamos la expiración de conexiones
-time.sleep(6)  # Esperamos más tiempo que el timeout
-
-# Enviamos un nuevo paquete para ver si se ha limpiado la conexión anterior
-new_packet = Packet(ip='192.168.1.1', port=1234, protocol='TCP')
-handler.handle_request(new_packet)
+            return self.next_handler.handler_request(packet)
