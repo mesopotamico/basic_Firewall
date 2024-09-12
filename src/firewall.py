@@ -49,7 +49,7 @@ def main():
         firewall.process(packet)
         print("Siguiente")
 
-    sniff(prn = packet_callback, count = 10)
+    sniff(prn = packet_callback, count = 3)
 
 if __name__ == "__main__":
     main()

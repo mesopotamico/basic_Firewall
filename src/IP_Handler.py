@@ -15,18 +15,21 @@ class IPFilterHandler(Handler):
         self.next_handler = handler
 
     def handler_request(self, packet):
-        ip = packet.getlayer(IP)
-        if self.is_allowed_ip(ip.src):
-            print(f"Packet from {ip.src} allowed by IP filter. ")
-            if self.next_handler:
-                return self.next_handler.handler_request(packet) 
+        if packet.haslayer(IP):
+            ip = packet.getlayer(IP)
+            if self.is_allowed_ip(ip.src):
+                print(f"Packet from {ip.src} allowed by IP filter. ")
+                if self.next_handler:
+                    return self.next_handler.handler_request(packet) 
+            else:
+                print(f"Packet from {ip.src} blocked by IP filter.")
+                return "Blocked by IP filter."
         else:
-            print(f"Packet from {ip.src} blocked by IP filter.")
-            return "Blocked by IP filter."
+            print("Packet does not have IP")
 
     def is_allowed_ip(self, ip):
         #allowed_ips = ['192.168.1.10', '10.0.0.5'] 
-        return ip in allowed_ips
-        #return True
+        #return ip in allowed_ips
+        return True
 
 

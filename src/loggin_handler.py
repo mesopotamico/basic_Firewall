@@ -16,4 +16,3 @@ class LoggingHandler(Handler):
         if self.next_handler:
             return self.next_handler.handle_request(packet)
         return "Logged and processed"
-

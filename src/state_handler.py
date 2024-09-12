@@ -1,5 +1,18 @@
 import time
+from abc import ABC, abstractmethod
 
+class Handler(ABC):
+    @abstractmethod
+    def set_next(self, handler):
+        pass
+
+    @abstractmethod
+    def handle_request(self, packet):
+        pass
+
+
+from handler import Handler
+    
 class Connection:
     def __init__(self, ip, port, protocol):
         self.ip = ip
@@ -27,12 +40,16 @@ class StatefulHandler(Handler):
         self.next_handler = handler
 
     def handle_request(self, packet):
+        ip = packet.getlayer(IP)
+        port = packet.getlayer(TCP)
+        #protocol.
         current_time = time.time()
-        connection_id = (packet.ip, packet.port, packet.protocol)
+        connection_id = ( ip.src , port.sport, 'TCP')
         
         # Clean up expired connections
         expired_connections = [cid for cid, conn in self.connection_table.items()
                                if conn.expire(self.timeout)]
+        print(f"Las conexiones expiradas son {expired_connections}")
         for cid in expired_connections:
             del self.connection_table[cid]
         
@@ -47,26 +64,12 @@ class StatefulHandler(Handler):
         if self.next_handler:
             return self.next_handler.handle_request(packet)
 
-class Packet:
-    def __init__(self, ip, port, protocol):
-        self.ip = ip
-        self.port = port
-        self.protocol = protocol
-        
-
-
 
 # Creamos el manejador con un timeout de 5 segundos
 handler = StatefulHandler(timeout=5)
 
 # Enviamos algunos paquetes para simular conexiones
-packets = [
-    Packet(ip='192.168.1.1', port=1234, protocol='TCP'),
-    Packet(ip='192.168.1.1', port=1234, protocol='TCP'),
-    Packet(ip='192.168.1.2', port=5678, protocol='UDP'),
-    Packet(ip='192.168.1.1', port=1234, protocol='TCP'),
-]
-
+sniff(/)
 # Procesamos los paquetes a través del manejador
 for packet in packets:
     handler.handle_request(packet)

@@ -1,5 +1,14 @@
 import time
+from abc import ABC, abstractmethod
 
+class Handler(ABC):
+    @abstractmethod
+    def set_next(self, handler):
+        pass
+
+    @abstractmethod
+    def handle_request(self, packet):
+        pass
 class Connection:
     def __init__(self, ip, port, protocol):
         self.ip = ip
@@ -33,6 +42,7 @@ class StatefulHandler(Handler):
         # Clean up expired connections
         expired_connections = [cid for cid, conn in self.connection_table.items()
                                if conn.expire(self.timeout)]
+        print(f"Las conexiones expiradas son {expired_connections}")
         for cid in expired_connections:
             del self.connection_table[cid]
         
@@ -48,12 +58,11 @@ class StatefulHandler(Handler):
             return self.next_handler.handle_request(packet)
 
 class Packet:
+
     def __init__(self, ip, port, protocol):
         self.ip = ip
         self.port = port
         self.protocol = protocol
-        
-
 
 
 # Creamos el manejador con un timeout de 5 segundos
