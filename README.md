@@ -20,10 +20,12 @@ It is highly recommended to use a virtual environment to manage dependencies. Cr
     python -m venv venv
     source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 ```
+
 Install the Project
 Install the project along with its dependencies using pip:
 ```bash
-    pip install```
+    pip install
+```
 
 This command will install the firewall_project along with the scapy dependency specified in the setup.py file.
 Usage
