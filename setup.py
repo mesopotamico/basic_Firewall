@@ -6,6 +6,7 @@ setup(
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     install_requires=[
+        'python-dotenv', 
         'scapy',
         'requests',
         'altgraph==0.17.2',
