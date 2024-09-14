@@ -24,7 +24,7 @@ class PortFilterHandler(Handler):
                 if self.next_handler:
                     return self.next_handler.handler_request(packet) 
             else:
-                print(f"TCP Packet from {ip.src} with the port {tcp.sport} blocked by filter.")
+                print(f"TCP Packet from {ip.src} with the port {tcp.sport} blocked by port filter.")
                 return "Blocked by TCP filter."
 
         elif packet.haslayer(UDP):
@@ -34,9 +34,10 @@ class PortFilterHandler(Handler):
                 if self.next_handler:
                     return self.next_handler.handler_request(packet)
             else:
-                print(f"UDP Packet from {ip.src} with the port {udp.sport} blocked by filter.")
+                print(f"UDP Packet from {ip.src} with the port {udp.sport} blocked by port filter.")
                 return "Blocked by UDP filter."
 
     def is_allowed_port(self, port):
         #allowed_ports = [80, 443, 3478]
+        return True
         return port in allowed_ports

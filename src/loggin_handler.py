@@ -14,5 +14,5 @@ class LoggingHandler(Handler):
 
         print(f"Logging packet: {packet}")
         if self.next_handler:
-            return self.next_handler.handle_request(packet)
+            return self.next_handler.handler_request(packet)
         return "Logged and processed"

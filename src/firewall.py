@@ -2,6 +2,7 @@ from IP_Handler import IPFilterHandler
 from port_handler import PortFilterHandler 
 from protocol_handler import ProtocolFilterHandler
 from loggin_handler import LoggingHandler
+from state_handler import StatefulHandler
 from scapy.all import  *
 from dotenv import load_dotenv
 import os
@@ -32,6 +33,7 @@ def main():
     port_handler = PortFilterHandler() 
     protocol_handler = ProtocolFilterHandler()
     loggin_handler = LoggingHandler() 
+    state_handler = StatefulHandler()
 
     #Make the firewall and assign the first handler
     firewall = Firewall()
@@ -40,6 +42,7 @@ def main():
     ip_handler.set_next(port_handler)
     port_handler.set_next(protocol_handler)
     protocol_handler.set_next(loggin_handler)
+    loggin_handler.set_next(state_handler)
    
     #Process a packet 
 

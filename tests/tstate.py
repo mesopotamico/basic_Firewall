@@ -66,7 +66,7 @@ class Packet:
 
 
 # Creamos el manejador con un timeout de 5 segundos
-handler = StatefulHandler(timeout=5)
+'''
 
 # Enviamos algunos paquetes para simular conexiones
 packets = [
@@ -87,3 +87,24 @@ time.sleep(6)  # Esperamos más tiempo que el timeout
 # Enviamos un nuevo paquete para ver si se ha limpiado la conexión anterior
 new_packet = Packet(ip='192.168.1.1', port=1234, protocol='TCP')
 handler.handle_request(new_packet)
+''' 
+
+handler = StatefulHandler(timeout=5)
+def packet_callback(packet):
+    #packet.show()
+    handler.handle_request(new_packet)
+    print("Siguiente")
+
+sniff(prn = packet_callback, count = 3)
+
+
+'''
+handler = StatefulHandler(timeout=0.1)
+
+def packet_callback(packet):
+    #packet.show()
+    handler.handler_request(packet)
+    print("Siguiente")
+
+sniff(prn = packet_callback, count = 100)
+''' 
