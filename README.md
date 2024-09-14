@@ -11,7 +11,9 @@ To install the `firewall_project`, follow these steps:
    First, clone the repository from GitHub (or your preferred version control system):
 
    ```bash
-    git clone https://github.com/yourusername/firewall_project.git
+    
+
+    git clone https://github.com/mesopotamico/basic_Firewall.git
     cd firewall_project
 
 2. Set Up a Virtual Environment (Recommended)
@@ -24,7 +26,7 @@ It is highly recommended to use a virtual environment to manage dependencies. Cr
 Install the Project
 Install the project along with its dependencies using pip:
 ```bash
-    pip install .
+    pip install  ..
 ```
 
 This command will install the firewall_project along with the scapy dependency specified in the setup.py file.
