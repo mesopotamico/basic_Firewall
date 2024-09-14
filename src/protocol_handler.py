@@ -5,7 +5,11 @@ import os
 
 load_dotenv()
 allowed_protocols_str = os.getenv('ALLOWED_PROTOCOLS')
-allowed_protocols = allowed_protocols_str.split(',')
+
+if allowed_protocols_str is not None:
+    allowed_protocols = allowed_protocols_str.split(',')
+else:
+    allowed_protocols = []
 
 class ProtocolFilterHandler(Handler):
     

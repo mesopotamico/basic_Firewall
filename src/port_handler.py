@@ -5,7 +5,11 @@ import os
 
 load_dotenv()
 allowed_ports_str = os.getenv('ALLOWED_PORTS')
-allowed_ports = allowed_ports_str.split(',')
+
+if allowed_ports_str is not None:
+    allowed_ports = allowed_ports_str.split(',')
+else:
+    allowed_ports = [] 
 
 
 class PortFilterHandler(Handler):
