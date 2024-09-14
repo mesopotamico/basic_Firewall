@@ -5,7 +5,13 @@ import os
 
 load_dotenv()
 allowed_ips_str = os.getenv('ALLOWED_IPS')
-allowed_ips = allowed_ips_str.split(',')
+
+if allowed_ips_str is not None:
+    allowed_ips = allowed_ips_str.split(',')
+else:
+    allowed_ips = []  # O manejar el caso de manera que tenga sentido para tu aplicación
+
+print(allowed_ips_str)
 
 class IPFilterHandler(Handler):
     def __init__(self):
