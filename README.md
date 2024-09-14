@@ -39,3 +39,26 @@ Once installed, you can use the command-line tool provided by the firewall_proje
 This command will execute the main function from the firewall module. Customize the tool's behavior by editing the firewall.py file in the src directory.
 
 **Note:** You have to be a root user to run the program.
+
+
+### Environment Variables
+
+To configure the application, you need to set the following environment variables:
+
+- **`ALLOWED_IPS`**: Specifies the IP addresses that are permitted to access the application. You can list multiple IP addresses separated by commas. Example:
+  ```
+  ALLOWED_IPS=192.168.1.10,10.0.0.5
+  ```
+
+- **`ALLOWED_PORTS`**: Defines the network ports that the application will accept. List multiple ports separated by commas. Example:
+  ```
+  ALLOWED_PORTS=80,443,3478
+  ```
+
+- **`ALLOWED_PROTOCOLS`**: Specifies the network protocols allowed by the application. List multiple protocols separated by commas. Example:
+  ```
+  ALLOWED_PROTOCOLS=TCP,UDP,Ethernet,IP,Raw,DNS
+  ```
+
+To set these environment variables, you can add them to your `.env` file or configure them directly in your server or development environment.
+
