@@ -49,6 +49,7 @@ def main():
 
     def packet_callback(packet):
         #packet.show()
+        loggin_handler.handler_request(packet)
         firewall.process(packet)
         print("Siguiente")
 
