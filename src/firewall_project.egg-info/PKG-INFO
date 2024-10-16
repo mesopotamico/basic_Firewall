@@ -1,22 +1,16 @@
 Metadata-Version: 2.1
-Name: firewall_project
+Name: firewall-project
 Version: 0.1
 Summary: A basic firewall project using scapy
+Home-page: UNKNOWN
 Author: Nicolas Duque
 Author-email: n.duque1@utp.edu.co
 License: MIT
+Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
-Requires-Dist: python-dotenv
-Requires-Dist: scapy
-Requires-Dist: requests
-Requires-Dist: altgraph==0.17.2
-Requires-Dist: future==0.18.2
-Requires-Dist: macholib==1.15.2
-Requires-Dist: six==1.15.0
-Requires-Dist: wheel==0.44.0
 
 ## Overview
 
@@ -81,4 +75,6 @@ To configure the application, you need to set the following environment variable
   ```
 
 To set these environment variables, you can add them to your `.env` file or configure them directly in your server or development environment.
+
+
 

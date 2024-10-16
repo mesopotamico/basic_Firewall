@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from scapy.all import *
 import os
 from datetime import datetime
+import socket
 
 class LoggingHandler(Handler):
     def __init__(self, log_file="log.txt"):
